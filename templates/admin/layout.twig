@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>{% block title %}Admin{% endblock %} · Nexova CMS</title>
+<link rel="icon" href="/assets/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/admin.css">
+</head><body>
+<div class="shell">
+<nav class="side">
+  <img src="/assets/logo.png" alt="Nexova">
+  <a href="/admin" class="{{ active == 'dashboard' ? 'on' }}">Dashboard</a>
+  <a href="/admin/products" class="{{ active == 'products' ? 'on' }}">Products</a>
+  <a href="/admin/services" class="{{ active == 'services' ? 'on' }}">Services</a>
+  <a href="/admin/steps" class="{{ active == 'steps' ? 'on' }}">How we work</a>
+  <a href="/admin/settings" class="{{ active == 'settings' ? 'on' }}">Page text</a>
+  <a href="/admin/messages" class="{{ active == 'messages' ? 'on' }}">Messages{% if unread_count %}<span class="badge">{{ unread_count }}</span>{% endif %}</a>
+  <a href="/" target="_blank" rel="noopener">View site ↗</a>
+  <form method="post" action="/admin/logout">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm" type="submit">Log out</button></form>
+</nav>
+<main>
+  {% if flash %}<div class="flash" role="status">{{ flash }}</div>{% endif %}
+  {% block body %}{% endblock %}
+</main>
+</div>
+</body></html>

@@ -1,0 +1,18 @@
+{% extends 'admin/layout.twig' %}
+{% set active = kind %}
+{% block title %}{{ row.id ? 'Edit' : 'New' }} {{ c.single }}{% endblock %}
+{% block body %}
+<div class="bar"><h1>{{ row.id ? 'Edit' : 'New' }} {{ c.single }}</h1><a href="/admin/{{ kind }}">← Back</a></div>
+<form class="card" method="post" action="/admin/{{ kind }}{{ row.id ? '/' ~ row.id : '' }}">
+  {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+  {{ include('admin/_csrf.twig') }}
+  {% for key, f in c.fields %}
+    <label>{{ f[0] }}
+    {% if f[1] == 'textarea' %}<textarea name="{{ key }}">{{ attribute(row, key) }}</textarea>
+    {% elseif f[1] == 'code' %}<textarea class="code" name="{{ key }}">{{ attribute(row, key) }}</textarea>
+    {% else %}<input type="text" name="{{ key }}" value="{{ attribute(row, key) }}" {{ key == 'title' ? 'required' }}>{% endif %}
+    </label>
+  {% endfor %}
+  <button class="btn" type="submit">Save</button>
+</form>
+{% endblock %}

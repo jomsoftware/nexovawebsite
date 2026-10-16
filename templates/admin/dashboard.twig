@@ -1,0 +1,17 @@
+{% extends 'admin/layout.twig' %}
+{% set active = 'dashboard' %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<h1>Dashboard</h1>
+<div class="stats">
+  <div class="card"><b>{{ counts.products }}</b><span>Products</span></div>
+  <div class="card"><b>{{ counts.services }}</b><span>Services</span></div>
+  <div class="card"><b>{{ counts.steps }}</b><span>Process steps</span></div>
+  <div class="card"><b>{{ counts.unread }}</b><span>Unread messages</span></div>
+</div>
+<div class="card" style="margin-top:1.25rem">
+  <div class="bar"><h2 style="margin:0;font-size:1.1rem">Latest enquiries</h2><a href="/admin/messages">All messages</a></div>
+  {% if recent %}<table>{% for m in recent %}<tr class="{{ m.read ? '' : 'unread' }}"><td>{{ m.name }}</td><td class="muted">{{ m.email }}</td><td class="muted">{{ m.service }}</td><td class="muted">{{ m.created_at }}</td></tr>{% endfor %}</table>
+  {% else %}<p class="muted">No messages yet.</p>{% endif %}
+</div>
+{% endblock %}

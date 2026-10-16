@@ -1,0 +1,24 @@
+{% extends 'admin/layout.twig' %}
+{% set active = 'products' %}
+{% block title %}Products{% endblock %}
+{% block body %}
+<div class="bar"><h1>Products</h1><a class="btn" href="/admin/products/new">Add product</a></div>
+<div class="card">
+<table>
+  <tr><th></th><th>Name</th><th>Category</th><th>Status</th><th style="width:230px"></th></tr>
+  {% for r in rows %}
+  <tr>
+    <td>{% if r.logo %}<img class="logo" src="/uploads/{{ r.logo|url_encode }}" alt="">{% endif %}</td>
+    <td><b>{{ r.name }}</b></td><td class="muted">{{ r.category }}</td>
+    <td><span class="pill {{ r.active ? '' : 'off' }}">{{ r.active ? 'Live' : 'Hidden' }}</span></td>
+    <td>
+      <form class="inline" method="post" action="/admin/products/{{ r.id }}/move/up">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm" {{ loop.first ? 'disabled' }} aria-label="Move up">↑</button></form>
+      <form class="inline" method="post" action="/admin/products/{{ r.id }}/move/down">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm" {{ loop.last ? 'disabled' }} aria-label="Move down">↓</button></form>
+      <a class="btn ghost sm" href="/admin/products/{{ r.id }}">Edit</a>
+      <form class="inline" method="post" action="/admin/products/{{ r.id }}/delete" onsubmit="return confirm('Delete {{ r.name|e('js') }}?')">{{ include('admin/_csrf.twig') }}<button class="btn danger sm">Delete</button></form>
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="5" class="muted">No products yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

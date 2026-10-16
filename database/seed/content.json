@@ -1,0 +1,195 @@
+{
+  "products": [
+    {
+      "slug": "goenplay",
+      "name": "GoEnPlay",
+      "name_html": null,
+      "category": "Sports venue booking",
+      "audience": "For players, clubs and venue owners",
+      "description": "Find, book and pay for tennis, badminton and pickleball courts, with a merchant portal that runs the whole venue.",
+      "url": "https://goenplay.com/",
+      "mark": "Ge",
+      "mark_bg": null,
+      "mark_class": null,
+      "logo": "goenplay.jpg",
+      "sort": 0,
+      "features": [
+        "Live court availability with GCash and Maya checkout",
+        "Memberships, loyalty points and tournaments",
+        "Venue portal with POS, CRM, QR check-in and reports"
+      ]
+    },
+    {
+      "slug": "signease",
+      "name": "SignEase Cloud",
+      "name_html": "<span class=\"se-word\">signease<svg class=\"se-wave\" viewBox=\"0 0 100 10\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M2 6 C 20 0, 40 0, 55 5 S 85 10, 98 4\"/></svg></span><span class=\"se-cloud\">Cloud</span>",
+      "category": "E-signature platform",
+      "audience": "For HR, sales, legal teams and developers",
+      "description": "Send, sign and track documents online, or embed signing in your own apps through a developer-friendly API.",
+      "url": "https://signeasecloud.com/",
+      "mark": "s",
+      "mark_bg": "#3934d1",
+      "mark_class": "se-mark",
+      "logo": null,
+      "sort": 1,
+      "features": [
+        "Tamper-evident audit trail and evidence package",
+        "REST API, webhooks and embedded signing",
+        "Built around RA 8792 and the Data Privacy Act"
+      ]
+    },
+    {
+      "slug": "fastrack",
+      "name": "Fastrack ERP",
+      "name_html": null,
+      "category": "Enterprise resource planning",
+      "audience": "For growing SMEs, distributors and multi-branch businesses",
+      "description": "One system for finance, inventory, purchasing, sales and HR, so every branch works from the same numbers.",
+      "url": "https://fastrackerp-production-ytvve5.laravel.cloud/",
+      "mark": "Fa",
+      "mark_bg": null,
+      "mark_class": null,
+      "logo": "fastrack.png",
+      "sort": 2,
+      "features": [
+        "Accounting, BIR-ready books and financial reports",
+        "Inventory, purchasing and sales order management",
+        "Multi-branch dashboards and approval workflows"
+      ]
+    },
+    {
+      "slug": "tienda",
+      "name": "Tienda POS",
+      "name_html": "<span class=\"tienda\">Tienda</span> POS",
+      "category": "Point of sale",
+      "audience": "For retail, sari-sari stores and F&B",
+      "description": "A simple point-of-sale for stores and food businesses, with inventory that updates as you sell.",
+      "url": "https://tiendaposph.com/",
+      "mark": "Ti",
+      "mark_bg": "#385ed1",
+      "mark_class": null,
+      "logo": null,
+      "sort": 3,
+      "features": [
+        "Fast checkout with cash and e-wallets",
+        "Real-time inventory and low-stock alerts",
+        "Daily sales reports across branches"
+      ]
+    },
+    {
+      "slug": "pmo",
+      "name": "PMO Cloud",
+      "name_html": null,
+      "category": "Project portfolio management",
+      "audience": "For PMOs and IT departments",
+      "description": "One place to track every project, budget and risk, with status reports leadership actually reads.",
+      "url": null,
+      "mark": "Pm",
+      "mark_bg": null,
+      "mark_class": null,
+      "logo": "pmo.svg",
+      "sort": 4,
+      "features": [
+        "Portfolio dashboards and project health",
+        "Milestones, RAID logs and approvals",
+        "Auto-generated status reports"
+      ]
+    },
+    {
+      "slug": "hinuha",
+      "name": "HINUHA SMART System",
+      "name_html": null,
+      "category": "Flood early warning",
+      "audience": "For LGUs and DRRM offices",
+      "description": "Watershed-based flood forecasting and monitoring that gives LGU disaster offices hours of warning, not minutes.",
+      "url": "https://smart-ews-app-production.up.railway.app/",
+      "mark": "Hi",
+      "mark_bg": null,
+      "mark_class": null,
+      "logo": "hinuha.png",
+      "sort": 5,
+      "features": [
+        "Rainfall forecasts matched to flood simulations",
+        "Live river and rain sensor monitoring on a map",
+        "Barangay-level risk scoring and alerts"
+      ]
+    },
+    {
+      "slug": "clinic",
+      "name": "Medico Assistant",
+      "name_html": null,
+      "category": "Clinic management",
+      "audience": "For dental and medical clinics",
+      "description": "Patient records, appointments and billing for dental and medical clinics that keeps working when the internet doesn't.",
+      "url": null,
+      "mark": "Me",
+      "mark_bg": null,
+      "mark_class": null,
+      "logo": "clinic.png",
+      "sort": 6,
+      "features": [
+        "Dental charting and medical records",
+        "Appointments with SMS reminders",
+        "Multi-branch, offline-first and privacy-ready"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12\"/></svg>",
+      "title": "Custom Software Development",
+      "body": "Web, mobile and back-office systems built around how your team actually works, with full documentation and handover.",
+      "sort": 0
+    },
+    {
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 14v-2a8 8 0 0116 0v2\"/><rect x=\"3\" y=\"14\" width=\"4\" height=\"6\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"4\" height=\"6\" rx=\"1.5\"/></svg>",
+      "title": "Managed IT Services",
+      "body": "Helpdesk, device management, patching and monitoring for a predictable monthly fee. One number to call.",
+      "sort": 1
+    },
+    {
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 18a5 5 0 01-.9-9.9A6 6 0 0117.7 9 4.5 4.5 0 0117 18H7z\"/></svg>",
+      "title": "Cloud & Infrastructure",
+      "body": "Migrations, landing zones and cost optimization on AWS, Azure and Google Cloud, plus hybrid and on-prem networks.",
+      "sort": 2
+    },
+    {
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3v3M12 18v3M3 12h3M18 12h3\"/><rect x=\"7\" y=\"7\" width=\"10\" height=\"10\" rx=\"2\"/><path d=\"M10 10h4v4h-4z\"/></svg>",
+      "title": "AI & Process Automation",
+      "body": "Practical AI assistants, document workflows and low-code apps that remove manual steps without adding risk.",
+      "sort": 3
+    },
+    {
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20V10M10 20V4M16 20v-7M22 20H2\"/></svg>",
+      "title": "IT Advisory & PMO",
+      "body": "Technology roadmaps, SaaS governance, vendor selection and project management for initiatives that have to land.",
+      "sort": 4
+    }
+  ],
+  "steps": [
+    {
+      "title": "Assess",
+      "body": "We review your systems, risks and goals with the people who use them every day.",
+      "deliverable": "Deliverable: findings report",
+      "sort": 0
+    },
+    {
+      "title": "Design",
+      "body": "We propose an architecture, budget and timeline you can take to your board.",
+      "deliverable": "Deliverable: solution blueprint",
+      "sort": 1
+    },
+    {
+      "title": "Build",
+      "body": "We deliver in short sprints with a demo every two weeks and testing built in.",
+      "deliverable": "Deliverable: working release",
+      "sort": 2
+    },
+    {
+      "title": "Run",
+      "body": "We monitor, support and improve the solution under a clear service agreement.",
+      "deliverable": "Deliverable: monthly service report",
+      "sort": 3
+    }
+  ]
+}

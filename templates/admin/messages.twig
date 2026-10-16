@@ -1,0 +1,22 @@
+{% extends 'admin/layout.twig' %}
+{% set active = 'messages' %}
+{% block title %}Messages{% endblock %}
+{% block body %}
+<h1>Messages</h1>
+<div class="card">
+<table>
+  <tr><th>From</th><th>Interested in</th><th>Received</th><th style="width:170px"></th></tr>
+  {% for m in rows %}
+  <tr class="{{ m.read ? '' : 'unread' }}">
+    <td><details class="msg"><summary>{{ m.name }}{% if m.company %} · {{ m.company }}{% endif %}</summary>
+      <div class="muted"><a href="mailto:{{ m.email }}">{{ m.email }}</a>{% if m.phone %} · {{ m.phone }}{% endif %}</div><pre>{{ m.message }}</pre></details></td>
+    <td class="muted">{{ m.service }}</td><td class="muted">{{ m.created_at }} UTC</td>
+    <td>
+      <form class="inline" method="post" action="/admin/messages/{{ m.id }}/toggle">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm">{{ m.read ? 'Mark unread' : 'Mark read' }}</button></form>
+      <form class="inline" method="post" action="/admin/messages/{{ m.id }}/delete" onsubmit="return confirm('Delete this message?')">{{ include('admin/_csrf.twig') }}<button class="btn danger sm">Delete</button></form>
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="4" class="muted">No messages yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

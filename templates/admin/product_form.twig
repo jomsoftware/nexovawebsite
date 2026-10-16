@@ -1,0 +1,31 @@
+{% extends 'admin/layout.twig' %}
+{% set active = 'products' %}
+{% block title %}{{ p.id ? 'Edit' : 'New' }} product{% endblock %}
+{% block body %}
+<div class="bar"><h1>{{ p.id ? 'Edit product' : 'New product' }}</h1><a href="/admin/products">← Back</a></div>
+<form class="card" method="post" enctype="multipart/form-data" action="/admin/products{{ p.id ? '/' ~ p.id : '' }}">
+  {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+  {{ include('admin/_csrf.twig') }}
+  <div class="row">
+    <label>Name<input type="text" name="name" value="{{ p.name }}" required></label>
+    <label>Category <span class="hint">(e.g. Point of sale)</span><input type="text" name="category" value="{{ p.category }}"></label>
+  </div>
+  <label>Audience line <span class="hint">(shown at bottom of the panel)</span><input type="text" name="audience" value="{{ p.audience }}"></label>
+  <label>Description<textarea name="description">{{ p.description }}</textarea></label>
+  <label>Features <span class="hint">(one per line)</span><textarea name="features">{{ p.features|join("\n") }}</textarea></label>
+  <label>Website <span class="hint">(leave empty if none; the panel then shows only "Request a demo")</span><input type="url" name="url" value="{{ p.url }}" placeholder="https://"></label>
+  <div class="row">
+    <label>Logo <span class="hint">PNG, JPG or WebP, up to 2 MB</span><input type="file" name="logo" accept="image/png,image/jpeg,image/webp"></label>
+    <div>
+      {% if p.logo %}<img class="logo" style="width:64px;height:64px" src="/uploads/{{ p.logo|url_encode }}" alt="Current logo"><label style="margin-top:.5rem;font-weight:400"><input type="checkbox" name="remove_logo" value="1"> Remove current logo</label>{% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <label>Fallback badge text <span class="hint">(2 letters, used when there is no logo)</span><input type="text" name="mark" value="{{ p.mark }}" maxlength="3"></label>
+    <label>Badge colour<input type="text" name="mark_bg" value="{{ p.mark_bg }}" placeholder="#385ed1" pattern="#[0-9a-fA-F]{6}"></label>
+  </div>
+  <label>Custom name markup <span class="hint">(advanced, raw HTML; leave empty normally)</span><textarea class="code" name="name_html">{{ p.name_html }}</textarea></label>
+  <label style="font-weight:400"><input type="checkbox" name="active" value="1" {{ p.active ? 'checked' }}> Show on the public site</label>
+  <button class="btn" type="submit">Save product</button>
+</form>
+{% endblock %}

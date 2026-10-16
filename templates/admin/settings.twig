@@ -1,0 +1,19 @@
+{% extends 'admin/layout.twig' %}
+{% set active = 'settings' %}
+{% block title %}Page text{% endblock %}
+{% block body %}
+<h1>Page text</h1>
+<form method="post" action="/admin/settings">
+  {{ include('admin/_csrf.twig') }}
+  {% for group, fields in groups %}
+  <div class="card"><h2 style="margin:0 0 1rem;font-size:1.05rem">{{ group }}</h2>
+    {% for key, f in fields %}
+      <label>{{ f[0] }}
+      {% if f[1] == 'textarea' %}<textarea name="{{ key }}">{{ values[key]|default('') }}</textarea>
+      {% else %}<input type="text" name="{{ key }}" value="{{ values[key]|default('') }}">{% endif %}</label>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <button class="btn" type="submit">Save all</button>
+</form>
+{% endblock %}

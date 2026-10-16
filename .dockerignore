@@ -1,0 +1,6 @@
+vendor
+data
+.env
+.git
+_orig
+.playwright-mcp

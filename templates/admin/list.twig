@@ -1,0 +1,22 @@
+{% extends 'admin/layout.twig' %}
+{% set active = kind %}
+{% block title %}{{ c.title }}{% endblock %}
+{% block body %}
+<div class="bar"><h1>{{ c.title }}</h1><a class="btn" href="/admin/{{ kind }}/new">Add {{ c.single }}</a></div>
+<div class="card">
+<table>
+  <tr><th>Title</th><th>Description</th><th style="width:230px"></th></tr>
+  {% for r in rows %}
+  <tr>
+    <td><b>{{ r.title }}</b></td><td class="muted">{{ r.body|slice(0, 90) }}{{ r.body|length > 90 ? '…' }}</td>
+    <td>
+      <form class="inline" method="post" action="/admin/{{ kind }}/{{ r.id }}/move/up">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm" {{ loop.first ? 'disabled' }} aria-label="Move up">↑</button></form>
+      <form class="inline" method="post" action="/admin/{{ kind }}/{{ r.id }}/move/down">{{ include('admin/_csrf.twig') }}<button class="btn ghost sm" {{ loop.last ? 'disabled' }} aria-label="Move down">↓</button></form>
+      <a class="btn ghost sm" href="/admin/{{ kind }}/{{ r.id }}">Edit</a>
+      <form class="inline" method="post" action="/admin/{{ kind }}/{{ r.id }}/delete" onsubmit="return confirm('Delete this {{ c.single }}?')">{{ include('admin/_csrf.twig') }}<button class="btn danger sm">Delete</button></form>
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="3" class="muted">Nothing here yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}
