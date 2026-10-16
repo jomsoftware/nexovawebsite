@@ -1,6 +1,6 @@
-FROM php:8.3-apache
+FROM php:8.4-apache
 
-RUN a2enmod rewrite headers remoteip \
+RUN a2dismod -f mpm_event mpm_worker >/dev/null 2>&1 || true; a2enmod mpm_prefork rewrite headers remoteip \
  && apt-get update && apt-get install -y --no-install-recommends unzip git \
  && rm -rf /var/lib/apt/lists/*
 
