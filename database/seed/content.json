@@ -196,21 +196,21 @@
   {
    "title": "Healthcare & clinics",
    "body": "Patient records, appointments and billing live in paper files, chat threads and separate spreadsheets. Staff retype the same details and patients wait.",
-   "solution": "Patient, appointment and clinic workflow applications that keep one record per patient across every desk.",
+   "solution": "Clinic management for dental and medical practices: charting and records, appointments with SMS reminders, billing, multiple branches, and it keeps working when the internet doesn't.",
    "outcome": "Shorter queues, fewer lost records, and a front desk that stops retyping.",
    "sort": 0
   },
   {
    "title": "Local government",
-   "body": "Permits, civil records and citizen requests move by hand between offices. Nobody can say where an application is, including the applicant.",
-   "solution": "Service and records applications with tracking, approvals and public status for every request.",
-   "outcome": "Faster turnaround, clear accountability, and citizens who stop queuing for updates.",
+   "body": "Permits, civil records and citizen requests move by hand between offices, and nobody can say where an application is. Disaster offices get minutes of flood warning, not hours.",
+   "solution": "Service and records applications with tracking and approvals, plus watershed-based flood early warning: rainfall forecasts matched to flood simulations, live river and rain sensors, and barangay-level risk alerts.",
+   "outcome": "Faster turnaround, accountable offices, and hours of flood warning instead of minutes.",
    "sort": 1
   },
   {
    "title": "Retail & distribution",
    "body": "Stock counts and sales disagree between branches, and the owner finds out at month-end.",
-   "solution": "Point-of-sale and inventory applications that show every branch in one place, as it happens.",
+   "solution": "Point-of-sale for stores and food businesses with inventory that updates as you sell, and ERP for distributors and multi-branch operators: finance, purchasing, sales and BIR-ready books on one set of numbers.",
    "outcome": "Fewer stock-outs, no surprise shrinkage, and decisions made on today's numbers.",
    "sort": 2
   },
@@ -224,16 +224,23 @@
   {
    "title": "Banking & finance",
    "body": "Approvals and signed documents stall in email, and every handoff adds a day.",
-   "solution": "Workflow and e-signing applications that route each case to the right person with a full record.",
+   "solution": "E-signing and document workflow: approvals routed to the right person, a tamper-evident audit trail, and signing embedded in your own systems through an API. Built around RA 8792 and the Data Privacy Act.",
    "outcome": "Decisions in hours instead of days, and a clean trail for every audit.",
    "sort": 4
   },
   {
    "title": "Manufacturing & BPO",
    "body": "Production, targets and handovers are tracked in separate sheets, so managers manage by phone call.",
-   "solution": "Operations and project-tracking applications that give supervisors a live view of the floor and the queue.",
+   "solution": "Project and portfolio tracking for PMOs and IT teams, with project health, budgets and risks in one place and status reports leadership actually reads, plus operations dashboards for the floor and the queue.",
    "outcome": "Fewer blind spots, steadier output, and managers who plan instead of chase.",
    "sort": 5
+  },
+  {
+   "title": "Sports & recreation",
+   "body": "Courts and venues are booked by chat message and notebook, so slots go unfilled and nobody is sure who has paid.",
+   "solution": "Court and venue booking for players, clubs and owners: live availability with GCash and Maya checkout, memberships and tournaments, and a venue portal with POS, QR check-in and reports.",
+   "outcome": "Fuller calendars, payments collected up front, and owners who see the whole venue from one screen.",
+   "sort": 6
   }
  ]
 }

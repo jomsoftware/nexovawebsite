@@ -14,7 +14,7 @@ $fill = $pdo->prepare('INSERT OR IGNORE INTO settings (key,value) VALUES (?,?)')
 
 // Copy revision: bump when the seeded wording is rewritten. Existing databases get the new copy once,
 // industries and steps are reseeded too, and CMS edits made after that are never touched again.
-const COPY_REV = '3';
+const COPY_REV = '4';
 $rev = $pdo->query("SELECT value FROM settings WHERE key='copy_rev'")->fetchColumn();
 $empty = (int) $pdo->query('SELECT COUNT(*) FROM industries')->fetchColumn() === 0;
 
