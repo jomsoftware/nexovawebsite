@@ -19,6 +19,11 @@ final class Content
         return $rows;
     }
 
+    public function industries(): array
+    {
+        return $this->db->query('SELECT * FROM industries ORDER BY sort, id')->fetchAll();
+    }
+
     public function services(): array
     {
         return $this->db->query('SELECT * FROM services ORDER BY sort, id')->fetchAll();

@@ -14,17 +14,26 @@ final class SiteController
 
     public function home(Request $req, Response $res): Response
     {
-        $products = Content::productsForJs($this->content->products());
-        $services = $this->content->services();
         $s = $this->settings->all();
-        $flags = JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP;
+        $lines = fn(string $k) => array_values(array_filter(array_map('trim', explode("\n", $s[$k] ?? ''))));
         return $this->view->render($res, 'site.twig', [
             's' => $s,
-            'services' => $services,
+            'industries' => $this->content->industries(),
             'steps' => $this->content->steps(),
-            'industries' => array_values(array_filter(array_map('trim', explode("\n", $s['industries_list'] ?? '')))),
-            'products_json' => json_encode($products, $flags),
-            'service_options_json' => json_encode(array_column($services, 'title'), $flags),
+            'pains' => $lines('hero_pains'),
+        ]);
+    }
+
+    /** Static legal pages: privacy, cookies, terms. */
+    public function legal(Request $req, Response $res, array $args): Response
+    {
+        $titles = ['privacy' => 'Privacy Policy', 'cookies' => 'Cookie Policy', 'terms' => 'Terms of Use'];
+        $page = $args['page'];
+        return $this->view->render($res, 'legal.twig', [
+            's' => $this->settings->all(),
+            'page' => $page,
+            'doc' => ['title' => $titles[$page]],
+            'updated' => '16 October 2026',
         ]);
     }
 

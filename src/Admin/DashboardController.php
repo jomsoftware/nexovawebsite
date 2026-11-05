@@ -11,7 +11,7 @@ final class DashboardController extends Controller
         $n = fn(string $sql) => (int) $this->db->query($sql)->fetchColumn();
         return $this->render($res, 'dashboard', [
             'counts' => [
-                'products' => $n('SELECT COUNT(*) FROM products'), 'services' => $n('SELECT COUNT(*) FROM services'),
+                'industries' => $n('SELECT COUNT(*) FROM industries'),
                 'steps' => $n('SELECT COUNT(*) FROM process_steps'), 'unread' => $n('SELECT COUNT(*) FROM messages WHERE read = 0'),
             ],
             'recent' => $this->db->query('SELECT * FROM messages ORDER BY id DESC LIMIT 5')->fetchAll(),

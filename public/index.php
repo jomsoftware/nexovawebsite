@@ -54,6 +54,7 @@ $app->add($guard);
 $app->addErrorMiddleware(($_ENV['APP_ENV'] ?? 'production') === 'local', true, true);
 
 $app->get('/', [App\Controllers\SiteController::class, 'home']);
+$app->get('/{page:privacy|cookies|terms}', [App\Controllers\SiteController::class, 'legal']);
 $app->get('/uploads/{file}', [App\Controllers\SiteController::class, 'upload']);
 $app->post('/contact', [App\Controllers\ContactController::class, 'submit']);
 
@@ -72,7 +73,7 @@ $app->group('/admin', function ($g) {
     $g->post('/products/{id:[0-9]+}/delete', [Admin\ProductController::class, 'delete']);
     $g->post('/products/{id:[0-9]+}/move/{dir:up|down}', [Admin\ProductController::class, 'move']);
 
-    $k = '{kind:services|steps}';
+    $k = '{kind:industries|services|steps}';
     $g->get("/$k", [Admin\ListController::class, 'index']);
     $g->get("/$k/new", [Admin\ListController::class, 'form']);
     $g->post("/$k", [Admin\ListController::class, 'save']);

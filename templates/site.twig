@@ -1,110 +1,95 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{{ s.site_title }}</title>
+<title>{{ s.site_title }} · {{ s.hero_title }} {{ s.hero_accent }}</title>
 <meta name="description" content="{{ s.hero_lede }}">
 <link rel="icon" href="/assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head><body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Nexova PH home">
-      <img class="logo-light" src="/assets/logo.png" alt="Nexova PH">
+    <a class="brand" href="#top" aria-label="Nexova home">
+      <img class="logo-light" src="/assets/logo.png" alt="Nexova">
     </a>
     <ul class="menu">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#process">How we work</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#process">How we help</a></li>
       <li><a href="#about">About</a></li>
     </ul>
-    <a class="btn btn-primary" href="#contact">Book a consult</a>
+    <a class="btn btn-primary" href="#contact">Tell us your problem</a>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero" style="padding:0">
+  <section class="hero">
     <div class="wrap">
-      <div>
-        <span class="kicker">{{ s.hero_kicker }}</span>
-        <h1>{{ s.hero_title }} <span>{{ s.hero_accent }}</span>.</h1>
-        <p class="lede">{{ s.hero_lede }}</p>
-        <div class="ctas">
-          <a class="btn btn-primary" href="#contact">Talk to an expert
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-outline" href="#products">Explore our products</a>
-        </div>
-        <div class="checks">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check1 }}</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check2 }}</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check3 }}</span>
-        </div>
+      <span class="kicker">{{ s.hero_kicker }}</span>
+      <h1>{{ s.hero_title }} <em>{{ s.hero_accent }}</em>.</h1>
+      <p class="lede">{{ s.hero_lede }}</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#contact">Tell us your problem <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-outline" href="#industries">See your industry</a>
+      </div>
+      {% if pains %}
+      <div class="pains">
+        <span class="pains-label">We hear this every week</span>
+        <ul>{% for p in pains %}<li>{{ p }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      <div class="checks">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check1 }}</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check2 }}</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check3 }}</span>
       </div>
     </div>
   </section>
 
-  <section id="services">
-    <div class="wrap">
-      <div class="head center">
-        <span class="kicker">{{ s.services_kicker }}</span>
-        <h2>{{ s.services_title }}</h2>
-        <p>{{ s.services_lede }}</p>
-      </div>
-      <div class="grid3">
-        {% for sv in services %}<article class="card"><div class="icon">{{ sv.icon|raw }}</div><h3>{{ sv.title }}</h3><p>{{ sv.body }}</p></article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <section id="products" class="alt">
+  <section id="industries">
     <div class="wrap">
       <div class="head">
-        <span class="kicker">{{ s.products_kicker }}</span>
-        <h2>{{ s.products_title }}</h2>
-        <p>{{ s.products_lede }}</p>
+        <span class="kicker">{{ s.industries_kicker }}</span>
+        <h2>{{ s.industries_title }}</h2>
+        <p>{{ s.industries_lede }}</p>
       </div>
-      <div class="showcase">
-        <div class="tabs" role="tablist" aria-label="Nexova products" id="tabs"></div>
-        <div class="pdetail" role="tabpanel" id="pdetail" aria-live="polite"></div>
-      </div>
+      <ol class="inds">
+        {% for i in industries %}
+        <li class="ind">
+          <div class="ind-name"><span class="ind-num">{{ '%02d'|format(loop.index) }}</span><h3>{{ i.title }}</h3></div>
+          <div class="ind-body">
+            <div class="ind-problem"><small>The problem</small><p>{{ i.body }}</p></div>
+            <div class="ind-build"><small>What we build</small><p>{{ i.solution }}</p></div>
+            <div class="ind-outcome"><small>What changes</small><p>{{ i.outcome }}</p></div>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="ind-more">Don't see your industry? <a href="#contact">Tell us how your work runs</a> and we will tell you honestly whether we can help.</p>
     </div>
   </section>
 
-  <section id="process">
+  <section id="process" class="dark">
     <div class="wrap">
-      <div class="head center">
+      <div class="head">
         <span class="kicker">{{ s.process_kicker }}</span>
         <h2>{{ s.process_title }}</h2>
         <p>{{ s.process_lede }}</p>
       </div>
       <div class="steps">
-        {% for st in steps %}<div class="step"><div class="step-num">{{ loop.index }}</div><h3>{{ st.title }}</h3><p>{{ st.body }}</p><p class="out">{{ st.deliverable }}</p></div>
+        {% for st in steps %}<div class="step"><div class="step-num">{{ '%02d'|format(loop.index) }}</div><h3>{{ st.title }}</h3><p>{{ st.body }}</p><p class="out">{{ st.deliverable }}</p></div>
         {% endfor %}
       </div>
     </div>
   </section>
 
-  <section id="about" class="alt">
-    <div class="wrap">
-      <div class="head center" style="margin-bottom:0">
+  <section id="about">
+    <div class="wrap about">
+      <div>
         <span class="kicker">{{ s.about_kicker }}</span>
         <h2>{{ s.about_title }}</h2>
-        <p>{{ s.about_lede }}</p>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head center">
-        <span class="kicker">{{ s.industries_kicker }}</span>
-        <h2>{{ s.industries_title }}</h2>
-      </div>
-      <div class="chips">
-        {% for c in industries %}<span>{{ c }}</span>{% endfor %}
-      </div>
+      <p class="about-text">{{ s.about_lede }}</p>
     </div>
   </section>
 
@@ -124,13 +109,14 @@
       <form id="contact-form" method="post" action="/contact" novalidate>
         <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}"><input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-        <h3>Request a consultation</h3>
+        <h3>Tell us what is slowing you down</h3>
         <label>Full name<input id="f-name" name="name" required autocomplete="name"></label>
         <label>Company<input id="f-company" name="company" autocomplete="organization"></label>
         <label>Work email<input id="f-email" name="email" type="email" required autocomplete="email"></label>
         <label>Mobile<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label>
-        <label class="full">I'm interested in<select id="f-service" name="service"></select></label>
-        <label class="full">Message<textarea id="f-msg" name="message" placeholder="A few lines about your systems and what you'd like to change."></textarea></label>
+        <label class="full">Your industry<select id="f-service" name="service">{% for i in industries %}<option>{{ i.title }}</option>{% endfor %}<option>Another industry</option></select></label>
+        <label class="full">The problem<textarea id="f-msg" name="message" placeholder="What is slowing your team down today, in your own words."></textarea></label>
+        <label class="full consent"><input type="checkbox" name="consent" value="1" required><span>I agree that Nexova may use these details to respond to my enquiry, as described in the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
         <div class="full"><button class="btn btn-primary" type="submit">Send request</button></div>
         <p class="form-msg" id="form-msg" role="status" hidden></p>
       </form>
@@ -141,47 +127,14 @@
 <footer>
   <div class="wrap">
     <div class="fgrid">
-      <div><img class="logo-light" src="/assets/logo.png" alt="Nexova PH"><p class="tag">IT services and cloud products for Philippine businesses, institutions and LGUs.</p></div>
-      <div><h4>Services</h4><ul>{% for sv in services %}<li><a href="#services">{{ sv.title }}</a></li>{% endfor %}</ul></div>
-      <div><h4>Products</h4><ul id="foot-products"></ul></div>
-      <div><h4>Company</h4><ul><li><a href="#process">How we work</a></li><li><a href="#about">About us</a></li><li><a href="#contact">Contact us</a></li></ul></div>
+      <div><img class="logo-light" src="/assets/logo.png" alt="Nexova"><p class="tag">Applications built for the industries that keep the Philippines running.</p></div>
+      <div><h4>Industries</h4><ul>{% for i in industries %}<li><a href="#industries">{{ i.title }}</a></li>{% endfor %}</ul></div>
+      <div><h4>Company</h4><ul><li><a href="#process">How we help</a></li><li><a href="#about">About us</a></li><li><a href="#contact">Contact us</a></li></ul></div>
     </div>
-    <div class="fbottom"><span>{{ s.footer_copyright }}</span><span>{{ s.contact_email }} · {{ s.contact_phone }} · {{ s.contact_website }}</span></div>
+    <div class="fbottom"><span>{{ s.footer_copyright }}</span><span class="flegal"><a href="/privacy">Privacy</a> · <a href="/cookies">Cookies</a> · <a href="/terms">Terms</a></span><span>{{ s.contact_email }} · {{ s.contact_phone }} · {{ s.contact_website }}</span></div>
   </div>
 </footer>
 <script>
-var ext='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>';
-var check='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
-var products={{ products_json|raw }};
-var tabs=document.getElementById('tabs'),detail=document.getElementById('pdetail');
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-function show(i,focus){
-  var p=products[i];
-  Array.prototype.forEach.call(tabs.children,function(t,j){t.setAttribute('aria-selected',j===i);t.tabIndex=j===i?0:-1});
-  if(focus)tabs.children[i].focus();
-  detail.setAttribute('aria-labelledby','tab-'+p.id);
-  var head='<span class="cat">'+esc(p.cat)+'</span><h3>'+(p.nameHtml||esc(p.name))+'</h3>';
-  if(p.logo)head='<div class="ptop"><img class="plogo" src="'+p.logo+'" alt="'+esc(p.name)+' logo"><div>'+head+'</div></div>';
-  detail.innerHTML=head+'<p class="desc">'+esc(p.desc)+'</p><div class="features">'+p.f.map(function(x){return '<div class="feature">'+check+'<span>'+esc(x)+'</span></div>'}).join('')+'</div><div class="pfoot"><span>'+esc(p.aud)+'</span><div class="pbtns">'+(p.url?'<a class="btn btn-outline" href="'+p.url+'" target="_blank" rel="noopener">Visit website'+ext+'</a>':'')+'<a class="btn btn-primary" href="#contact" data-p="'+i+'">Request a demo</a></div></div>';
-}
-products.forEach(function(p,i){
-  var b=document.createElement('button');b.className='tab';b.id='tab-'+p.id;b.setAttribute('role','tab');b.setAttribute('aria-controls','pdetail');
-  b.innerHTML=(p.logo?'<span class="pmark img"><img src="'+p.logo+'" alt=""></span>':(p.markBg?'<span class="pmark solid '+(p.markClass||'')+'" style="background-color:'+p.markBg+'">':'<span class="pmark">')+p.mark+'</span>')+'<span>'+esc(p.name)+'<small>'+esc(p.cat)+'</small></span>';
-  b.onclick=function(){show(i)};tabs.appendChild(b);
-  var li=document.createElement('li');li.innerHTML='<a href="#products">'+esc(p.name)+'</a>';
-  if(p.url){li.innerHTML='<a href="'+p.url+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>'}else{li.firstChild.onclick=function(){show(i)}}document.getElementById('foot-products').appendChild(li);
-});
-tabs.addEventListener('keydown',function(e){
-  var cur=products.findIndex(function(_,j){return tabs.children[j].getAttribute('aria-selected')==='true'});
-  if(['ArrowDown','ArrowRight'].includes(e.key)){e.preventDefault();show((cur+1)%products.length,true)}
-  if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();show((cur-1+products.length)%products.length,true)}
-});
-show(0);
-
-var sel=document.getElementById('f-service');
-{{ service_options_json|raw }}.concat(products.map(function(p){return 'Product demo: '+p.name})).forEach(function(o){var op=document.createElement('option');op.textContent=o;sel.appendChild(op)});
-detail.addEventListener('click',function(e){var a=e.target.closest('[data-p]');if(a)sel.value='Product demo: '+products[+a.dataset.p].name});
-
 document.getElementById('contact-form').addEventListener('submit',function(e){
   e.preventDefault();
   var f=e.target,m=document.getElementById('form-msg'),b=f.querySelector('button');
@@ -193,4 +146,12 @@ document.getElementById('contact-form').addEventListener('submit',function(e){
     .then(function(){b.disabled=false});
 });
 </script>
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-labelledby="cb-title" aria-live="polite" hidden>
+  <div>
+    <b id="cb-title">Cookies on this site</b>
+    <p>We only use essential cookies that keep the site and contact form secure. No tracking or advertising. <a href="/cookies">Cookie Policy</a> · <a href="/privacy">Privacy Policy</a></p>
+  </div>
+  <button type="button" class="btn btn-primary" data-cookie-ok>Got it</button>
+</div>
+<script src="/assets/cookie-notice.js"></script>
 </body></html>

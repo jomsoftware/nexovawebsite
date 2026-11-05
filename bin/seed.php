@@ -7,34 +7,35 @@ use App\Support\Db;
 
 $pdo = Db::connect();
 $force = in_array('--force', $argv, true);
-if (!$force && $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn() > 0) {
+$c = json_decode(file_get_contents(__DIR__ . '/../database/seed/content.json'), true);
+$settings = json_decode(file_get_contents(__DIR__ . '/../database/seed/settings.json'), true);
+$put = $pdo->prepare('INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value');
+$fill = $pdo->prepare('INSERT OR IGNORE INTO settings (key,value) VALUES (?,?)');
+
+// Copy revision: bump when the seeded wording is rewritten. Existing databases get the new copy once,
+// industries and steps are reseeded too, and CMS edits made after that are never touched again.
+const COPY_REV = '3';
+$rev = $pdo->query("SELECT value FROM settings WHERE key='copy_rev'")->fetchColumn();
+$empty = (int) $pdo->query('SELECT COUNT(*) FROM industries')->fetchColumn() === 0;
+
+if (!$force && $rev === COPY_REV && !$empty) {
     echo "Already seeded (use --force to wipe and reseed).\n";
     exit(0);
 }
-$c = json_decode(file_get_contents(__DIR__ . '/../database/seed/content.json'), true);
 $pdo->beginTransaction();
-foreach (['product_features', 'products', 'services', 'process_steps'] as $t) {
-    $pdo->exec("DELETE FROM $t");
+if ($force || $empty || $rev !== COPY_REV) {
+    $pdo->exec('DELETE FROM industries');
+    $i = $pdo->prepare('INSERT INTO industries (title,body,solution,outcome,sort) VALUES (?,?,?,?,?)');
+    foreach ($c['industries'] as $x) { $i->execute([$x['title'], $x['body'], $x['solution'], $x['outcome'], $x['sort']]); }
 }
-$up = Db::dataDir() . '/uploads';
-$p = $pdo->prepare('INSERT INTO products (slug,name,name_html,category,audience,description,url,mark,mark_bg,mark_class,logo,sort) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
-$f = $pdo->prepare('INSERT INTO product_features (product_id,text,sort) VALUES (?,?,?)');
-foreach ($c['products'] as $x) {
-    if ($x['logo']) {
-        copy(__DIR__ . '/../database/seed/logos/' . $x['logo'], "$up/{$x['logo']}");
-    }
-    $p->execute([$x['slug'], $x['name'], $x['name_html'], $x['category'], $x['audience'], $x['description'], $x['url'],
-        $x['mark'], $x['mark_bg'], $x['mark_class'], $x['logo'], $x['sort']]);
-    $id = (int) $pdo->lastInsertId();
-    foreach ($x['features'] as $i => $t) {
-        $f->execute([$id, $t, $i]);
-    }
+if ($force || $rev !== COPY_REV) {
+    $pdo->exec('DELETE FROM process_steps');
+    $s = $pdo->prepare('INSERT INTO process_steps (title,body,deliverable,sort) VALUES (?,?,?,?)');
+    foreach ($c['steps'] as $x) { $s->execute([$x['title'], $x['body'], $x['deliverable'], $x['sort']]); }
+    foreach ($settings as $k => $v) { $put->execute([$k, $v]); }
+} else {
+    foreach ($settings as $k => $v) { $fill->execute([$k, $v]); }
 }
-$s = $pdo->prepare('INSERT INTO services (title,body,icon,sort) VALUES (?,?,?,?)');
-foreach ($c['services'] as $x) { $s->execute([$x['title'], $x['body'], $x['icon'], $x['sort']]); }
-$s = $pdo->prepare('INSERT INTO process_steps (title,body,deliverable,sort) VALUES (?,?,?,?)');
-foreach ($c['steps'] as $x) { $s->execute([$x['title'], $x['body'], $x['deliverable'], $x['sort']]); }
-$st = $pdo->prepare('INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value');
-foreach (json_decode(file_get_contents(__DIR__ . '/../database/seed/settings.json'), true) as $k => $v) { $st->execute([$k, $v]); }
+$put->execute(['copy_rev', COPY_REV]);
 $pdo->commit();
-echo "Seeded: " . count($c['products']) . " products, " . count($c['services']) . " services, " . count($c['steps']) . " steps.\n";
+echo "Seeded: " . count($c['industries']) . " industries, " . count($c['steps']) . " steps, copy rev " . COPY_REV . ".\n";

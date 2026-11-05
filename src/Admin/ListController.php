@@ -6,10 +6,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 use PDO;
 
-/** Generic CRUD for the small ordered lists (services, process steps). */
+/** Generic CRUD for the small ordered lists (industries, process steps). */
 final class ListController extends Controller
 {
     public const CONFIG = [
+        'industries' => ['table' => 'industries', 'title' => 'Industries', 'single' => 'industry', 'fields' => [
+            'title' => ['Industry name', 'text'], 'body' => ['The problem (what is slowing them down)', 'textarea'],
+            'solution' => ['What we build', 'textarea'], 'outcome' => ['What changes (the result)', 'textarea'],
+        ]],
         'services' => ['table' => 'services', 'title' => 'Services', 'single' => 'service', 'fields' => [
             'title' => ['Title', 'text'], 'body' => ['Description', 'textarea'], 'icon' => ['Icon (inline SVG, optional)', 'code'],
         ]],

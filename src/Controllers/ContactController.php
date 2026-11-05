@@ -28,6 +28,10 @@ final class ContactController
             return $this->json($res, false, 'Please enter your name and a valid work email.', 422);
         }
 
+        if ($clean('consent', 5) === '') {
+            return $this->json($res, false, 'Please tick the box to agree to the Privacy Policy.', 422);
+        }
+
         // Rate limit: max 5 submissions per IP-less global window is too blunt; limit per email + overall flood.
         $recent = $this->db->prepare("SELECT COUNT(*) FROM messages WHERE created_at > datetime('now','-1 hour') AND (email = ? OR 1 = 0)");
         $recent->execute([$email]);

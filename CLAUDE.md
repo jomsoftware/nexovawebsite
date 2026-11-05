@@ -2,24 +2,37 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repo state
+## What this is
 
-Not a git repo. No build system, package manager, tests, or linter. Whole project = one self-contained static file: `Nexova IT Solutions.html` (marketing site for Nexova IT Solutions). Filename has spaces — quote paths in shell.
+Marketing site for Nexova (industry-first, problem-led copy, no product pages) with a small CMS, converted from a single static HTML page (kept untouched at `_orig/Nexova IT Solutions.html`). Slim 4 + Twig + SQLite, single admin user, deployed to Railway via `Dockerfile`. No tests or linter configured.
 
-View: open the file in a browser (`open "Nexova IT Solutions.html"`). Only external dependency is Google Fonts (Plus Jakarta Sans, Source Serif 4) via `<link>`.
+## Commands
 
-## Structure of the HTML
+```
+composer install
+cp .env.example .env              # then set ADMIN_EMAIL / ADMIN_PASSWORD_HASH
+php bin/hash-password.php "pw"    # prints the argon2id hash for ADMIN_PASSWORD_HASH
+php bin/seed.php                  # seed industries/steps/copy from database/seed/ (idempotent; bump COPY_REV in the script to overwrite page text, industries and steps in existing DBs once)
+php bin/seed.php --force          # WIPES industries/steps and reseeds. Dev only, never on Railway.
+composer start                    # php -S localhost:8080, router is public/index.php
+```
 
-- **Head/CSS**: one inline `<style>` block. Design tokens in `:root` (`--navy`, `--sky`, `--ink`, `--soft`, etc.). Light-only (`color-scheme:light`). Honors `env(safe-area-inset-*)` and `prefers-reduced-motion`.
-- **Sections** (anchor ids): sticky `header` → hero (`#top`) → `#services` → `#products` (tabbed showcase) → `#process` → `#about` → unnamed section → `#contact` → `footer`.
-- **One inline `<script>` at end**, no libraries:
-  - `products` array is the single source of truth for the product showcase. Each entry: `id`, optional `url`, `mark`/`markBg`/`markClass` (fallback badge), optional `logo` (base64 data URI), `nameHtml`/`name`, `cat`, `desc`, `f` (feature list). Entries without `url` (`pmo`, `clinic`) have no external link and open the in-page demo flow instead.
-  - From that array JS builds: the tab buttons in `#tabs`, the detail panel `#pdetail` (`show(i)`, ARIA tabs with arrow-key nav), footer product links `#foot-products`, and `#f-service` dropdown options (`Product demo: <name>`).
-  - Clicking a `[data-p]` link in the detail panel preselects that product in the contact form's service dropdown.
-  - Contact form `#contact-form` is preview-only: submit is `preventDefault`ed, validates name + email, shows a "Preview mode" message in `#form-msg`. Not wired to any backend.
+In `.env`, the hash must be double-quoted with each `$` escaped as `\$` (dotenv would otherwise expand `$argon2id...`). On Railway paste it raw.
 
-## Editing notes
+## Architecture
 
-- Adding/changing a product: edit the `products` array only; tabs, footer, and form dropdown follow automatically.
-- File is ~300 KB because product logos are inline base64 data URIs inside `products`. Lines are very long — use targeted `grep -o`/`cut -c` or Edit with small unique strings rather than dumping the file.
-- Dynamic content is built via `innerHTML`; user-facing strings from `products` go through `esc()` (escapes `&` and `<` only).
+- **Single front controller** `public/index.php`: loads dotenv, starts the session, builds the PHP-DI container, registers Slim CSRF guard (persistent token mode) and all routes. Session save path is `$DATA_DIR/sessions`. CSRF token fields are exposed to every template as the Twig global `csrf`; all POST forms (public and admin) must include them.
+- **Data dir** (`DATA_DIR`, default `./data`, `/data` on Railway) holds `app.db`, `uploads/` and `sessions/`. It must be a persistent volume in production, since the container filesystem is ephemeral. `Db::connect()` runs `database/schema.sql` (idempotent `CREATE IF NOT EXISTS`) on every connection, so adding a table means editing that file. There is no migration system, so changing an existing column needs a manual `ALTER`.
+- **Uploads are not under `public/`**. They are served by `SiteController::upload` at `/uploads/{file}` with a content-type whitelist, `nosniff`, and a sandboxing CSP (matters for SVG). Admin accepts only PNG/JPG/WebP (validated with `getimagesizefromstring`, 2 MB); the seeded `pmo.svg` is the one trusted SVG.
+- **Public page**: `templates/site.twig` (one page). Copy comes from the `settings` key/value table (`s.*`), lists from `industries` (problem / what we build / what changes) and `process_steps`, all server-rendered. The `products` and `services` tables and their admin code remain but are no longer shown on the public page. The contact form's industry dropdown is rendered from `industries`. CSS is `public/assets/site.css` (off-white base, Source Serif 4 headlines, navy accent).
+- **Editable settings** are defined once in `src/Support/SettingsSchema.php`. To add an editable text, add it there, use `{{ s.key }}` in the template, and add a default to `database/seed/settings.json` (existing DBs need the value saved once via the admin, since seeding skips a populated DB).
+- **Contact form** (`ContactController`): honeypot field `website`, per-email and global flood limit, saves to `messages`, then emails via Symfony Mailer if `MAIL_DSN` is set. A mail failure is logged and never fails the request. The page JS posts it with `fetch` and expects `{ok,message}` JSON.
+- **Admin** (`src/Admin/`, routes under `/admin`): `AuthMiddleware` guards the group. Login is env-based (`ADMIN_EMAIL` + `ADMIN_PASSWORD_HASH`), with 5 failures per IP per 15 minutes tracked in `login_attempts` (client IP from `X-Forwarded-For` because Railway proxies). `ProductController` handles products, features and logo upload. `ListController` is one config-driven CRUD for services and steps (`ListController::CONFIG`). The service icon field is raw SVG rendered unescaped on the public page, so it is validated to a single `<svg>` with no scripts or handlers. Ordering uses a `sort` column, swapped by `Controller::reorder`.
+
+## Deploy (Railway)
+
+Uses the `Dockerfile` (php:8.4-apache; `docker/start.sh` binds Apache to `$PORT`, seeds if empty, chowns the volume). Required: a Volume mounted at `/data`, and variables `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, plus `MAIL_DSN`/`MAIL_FROM`/`MAIL_TO` for email. `DATA_DIR=/data` and `APP_ENV=production` are baked into the image. The volume limits the service to one replica.
+
+## One-time extraction scripts
+
+`bin/extract-seed.mjs` and `bin/extract-template.mjs` generated `database/seed/*`, `templates/site.twig` and the CSS/logo from `_orig/`. They are not part of the runtime. Re-running `extract-template.mjs` overwrites `templates/site.twig`, so any hand edits there would be lost.
