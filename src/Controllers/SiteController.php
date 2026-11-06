@@ -42,6 +42,7 @@ final class SiteController
             'industries' => $this->content->industries(),
             'seo' => $seo + ['og_image' => $base . '/assets/og.jpg', 'og_type' => 'website', 'jsonld' => []],
             'site_url' => $base,
+            'asset_v' => substr(md5_file(__DIR__ . '/../../public/assets/site.css') . md5_file(__DIR__ . '/../../public/assets/site.js'), 0, 10),
         ];
     }
 
