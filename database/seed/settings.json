@@ -4,7 +4,6 @@
   "hero_title": "We fix the problems",
   "hero_accent": "slowing your industry down",
   "hero_lede": "Nexova builds the applications your sector actually runs on, shaped around how your people work, not the other way around.",
-  "hero_pains": "Paper logbooks\nSpreadsheet billing\nApprovals stuck in email\nNo view across branches\nRecords nobody can find",
   "hero_check1": "Data Privacy Act aligned",
   "hero_check2": "Support when you need it",
   "hero_check3": "Built in the Philippines",
@@ -24,5 +23,18 @@
   "contact_phone": "+63 933 863 1479",
   "contact_office": "Philippines · serving clients nationwide",
   "contact_website": "nexovaph.com",
-  "footer_copyright": "© 2026 Nexova. All rights reserved."
+  "footer_copyright": "© 2026 Nexova. All rights reserved.",
+  "seo_title": "Nexova | Applications for energy, healthcare, government and retail in the Philippines",
+  "seo_description": "Nexova builds applications for Philippine energy, healthcare, government, retail and finance, from solar forecasting and flood warning to clinic and POS systems.",
+  "hero_scope": "Applications for energy, healthcare, government, retail and finance in the Philippines.",
+  "caps_title": "Two things we bring to every industry",
+  "caps_lede": "Whatever your sector, these are the two ways we most often change how an organisation runs.",
+  "twin_title": "Digital twins",
+  "twin_body": "A live model of your plant, network or facility, fed by sensors and operating data, so you can see its condition, test changes and plan maintenance before anything fails.",
+  "twin_outcome": "Fewer surprise breakdowns, safer changes, and decisions tested before they cost money.",
+  "dt_title": "Digital transformation",
+  "dt_body": "We move paper, spreadsheets and disconnected systems onto one connected process. We start with the single bottleneck that costs you most, then extend from there.",
+  "dt_outcome": "One version of the truth, faster approvals, and teams that spend time on the work instead of re-entering it.",
+  "ai_title": "AI that works on your own data and processes",
+  "ai_lede": "We build AI into the systems you already run, with people kept in control and your data kept private."
 }

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{ seo.title }}</title>
+<meta name="description" content="{{ seo.description }}">
+<link rel="canonical" href="{{ seo.canonical }}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#005181">
+<meta property="og:locale" content="en_PH">
+<meta property="og:type" content="{{ seo.og_type }}">
+<meta property="og:site_name" content="Nexova">
+<meta property="og:title" content="{{ seo.title }}">
+<meta property="og:description" content="{{ seo.description }}">
+<meta property="og:url" content="{{ seo.canonical }}">
+<meta property="og:image" content="{{ seo.og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solar panels across a hillside solar farm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo.title }}">
+<meta name="twitter:description" content="{{ seo.description }}">
+<meta name="twitter:image" content="{{ seo.og_image }}">
+<link rel="icon" href="/assets/logo.png">
+<link rel="preload" href="/assets/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/sourcesans3.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+{% for j in seo.jsonld %}<script type="application/ld+json">{{ j|raw }}</script>
+{% endfor %}</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Nexova home">
+      <img class="logo-light" src="/assets/logo.png" width="1112" height="172" alt="Nexova">
+    </a>
+    <nav aria-label="Main">
+      <ul class="menu">
+        <li><a href="/#industries">Industries</a></li>
+        <li><a href="/#ai">AI services</a></li>
+        <li><a href="/#process">How we help</a></li>
+        <li><a href="/#about">About</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary" href="{{ contact_href|default('#contact') }}">Tell us your problem</a>
+  </div>
+</header>
+
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><img class="logo-light" src="/assets/logo.png" width="1112" height="172" alt="Nexova"><p class="tag">Applications built for the industries that keep the Philippines running.</p></div>
+      <nav aria-label="Industries"><h2>Industries</h2><ul>{% for x in industries %}<li><a href="/industries/{{ x.slug }}">{{ x.title }}</a></li>{% endfor %}</ul></nav>
+      <nav aria-label="Company"><h2>Company</h2><ul><li><a href="/#ai">AI services</a></li><li><a href="/#process">How we help</a></li><li><a href="/#about">About us</a></li><li><a href="{{ contact_href|default('#contact') }}">Contact us</a></li></ul></nav>
+    </div>
+    <div class="fbottom"><span>{{ s.footer_copyright }}</span><span class="flegal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></span><span class="fcontact"><a href="mailto:{{ s.contact_email }}">{{ s.contact_email }}</a><span>{{ s.contact_phone }}</span></span></div>
+  </div>
+</footer>
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-labelledby="cb-title" aria-live="polite" hidden>
+  <div>
+    <b id="cb-title">Cookies on this site</b>
+    <p>We only use essential cookies that keep the site and contact form secure. No tracking or advertising. <a href="/cookies">Cookie Policy</a> · <a href="/privacy">Privacy Policy</a></p>
+  </div>
+  <button type="button" class="btn btn-primary" data-cookie-ok>Got it</button>
+</div>
+<script src="/assets/cookie-notice.js"></script>
+<script src="/assets/site.js" defer></script>
+</body></html>

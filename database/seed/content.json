@@ -242,5 +242,37 @@
    "outcome": "Fuller calendars, payments collected up front, and owners who see the whole venue from one screen.",
    "sort": 6
   }
+ ],
+ "ai_services": [
+  {
+   "title": "Agentic AI",
+   "body": "Agents that take on multi-step work instead of only answering questions. They read a request, plan the steps, use your systems to carry them out, and ask a person to approve anything that matters.",
+   "outcome": "Routine work such as triage, reconciliation and routing approvals is done for you, and staff handle only the exceptions.",
+   "sort": 0
+  },
+  {
+   "title": "RAG knowledge assistants",
+   "body": "An assistant that answers questions from your own manuals, procedures, policies and regulations, and shows the source for every answer. It only shows people what they are already allowed to see.",
+   "outcome": "Staff find the right answer quickly instead of searching shared drives, and every answer can be checked.",
+   "sort": 1
+  },
+  {
+   "title": "Document intelligence",
+   "body": "Software that reads forms, invoices, permits and records, pulls out the details you need, and enters them into your systems. Anything it is unsure about goes to a person to check.",
+   "outcome": "Less retyping, fewer data-entry errors, and records you can finally search.",
+   "sort": 2
+  },
+  {
+   "title": "Forecasting and prediction",
+   "body": "Models that learn from your historical and sensor data to forecast demand, solar output, river levels or equipment failure, with a clear range of uncertainty and not a single number.",
+   "outcome": "Earlier warnings, better planning, and maintenance scheduled before something breaks.",
+   "sort": 3
+  },
+  {
+   "title": "Responsible AI",
+   "body": "We set up the safeguards around every AI system: access controls, audit logs, testing against your real cases, and handling of personal data under the Data Privacy Act.",
+   "outcome": "AI your auditors, regulators and staff can trust, with a record of what it did and why.",
+   "sort": 4
+  }
  ]
 }

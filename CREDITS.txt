@@ -1,0 +1,8 @@
+public/assets/og.jpg: "A field of solar panels with mountains in the background" by Quang Nguyen Vinh, Unsplash (Unsplash License, free for commercial use, attribution not required). https://unsplash.com/photos/r77F8p2SCn4
+public/assets/fonts/*.woff2: Lexend and Source Sans 3, SIL Open Font License 1.1, via Google Fonts.
+public/assets/photos/*.jpg, all Unsplash License:
+  energy-power: Quang Nguyen Vinh (r77F8p2SCn4); local-government: Unsplash aerial town photo (Tri_u7qeqGw);
+  healthcare-clinics: Jonathan Borba (hl6uG9cHW5A); retail-distribution: Zhen Yao (10_x8zmEAz0);
+  banking-finance: Haim Charbit (Iz0Q3qtqvjU); manufacturing-bpo: Unsplash factory photo (K7MOLaw4iV0);
+  sports-recreation: Irish83 (V7UIvLwf6wM). Photographer credits for ids marked "Unsplash" were not confirmed.
+  digital-twin: Unsplash industrial plant photo (blxaIo4Uy0A); digital-transformation: Unsplash photo of two colleagues at a laptop (t3RACFVYRlk). Photographer credits not confirmed.

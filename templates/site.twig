@@ -1,157 +1,101 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{{ s.site_title }} · {{ s.hero_title }} {{ s.hero_accent }}</title>
-<meta name="description" content="{{ s.hero_lede }}">
-<link rel="icon" href="/assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
-</head><body>
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="Nexova home">
-      <img class="logo-light" src="/assets/logo.png" alt="Nexova">
-    </a>
-    <ul class="menu">
-      <li><a href="#industries">Industries</a></li>
-      <li><a href="#process">How we help</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-    <a class="btn btn-primary" href="#contact">Tell us your problem</a>
-  </div>
-</header>
-
-<main id="top">
-  <section class="hero">
+{% extends 'base.twig' %}
+{% block main %}
+  <section class="phero">
+    <img src="/assets/photos/energy-power.jpg" width="1600" height="900" alt="" fetchpriority="high">
     <div class="wrap">
-      <span class="kicker">{{ s.hero_kicker }}</span>
-      <h1>{{ s.hero_title }} <em>{{ s.hero_accent }}</em>.</h1>
+      <h1>{{ (s.hero_title ~ ' ' ~ s.hero_accent)|trim }}.</h1>
+      {% if s.hero_scope %}<p class="scope">{{ s.hero_scope }}</p>{% endif %}
       <p class="lede">{{ s.hero_lede }}</p>
       <div class="ctas">
-        <a class="btn btn-primary" href="#contact">Tell us your problem <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-outline" href="#industries">See your industry</a>
+        <a class="btn btn-primary" href="#contact">Tell us your problem</a>
+        <a class="btn btn-outline" href="#industries">Find your industry</a>
       </div>
-      {% if pains %}
-      <div class="pains">
-        <span class="pains-label">We hear this every week</span>
-        <ul>{% for p in pains %}<li>{{ p }}</li>{% endfor %}</ul>
-      </div>
-      {% endif %}
-      <div class="checks">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check1 }}</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check2 }}</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>{{ s.hero_check3 }}</span>
-      </div>
+      <p class="checks"><span>{{ s.hero_check1 }}</span><span>{{ s.hero_check2 }}</span><span>{{ s.hero_check3 }}</span></p>
     </div>
   </section>
 
   <section id="industries">
     <div class="wrap">
       <div class="head">
-        <span class="kicker">{{ s.industries_kicker }}</span>
         <h2>{{ s.industries_title }}</h2>
         <p>{{ s.industries_lede }}</p>
       </div>
-      <ol class="inds">
+      <ul class="ptiles">
         {% for i in industries %}
-        <li class="ind">
-          <div class="ind-name"><span class="ind-num">{{ '%02d'|format(loop.index) }}</span><h3>{{ i.title }}</h3></div>
-          <div class="ind-body">
-            <div class="ind-problem"><small>The problem</small><p>{{ i.body }}</p></div>
-            <div class="ind-build"><small>What we build</small><p>{{ i.solution }}</p></div>
-            <div class="ind-outcome"><small>What changes</small><p>{{ i.outcome }}</p></div>
-          </div>
-        </li>
+        <li class="ptile"><a href="/industries/{{ i.slug }}">
+          <img src="/assets/photos/{{ i.slug }}.jpg" width="1600" height="900" alt="" loading="lazy">
+          <span class="pt-name">{{ i.title }}</span>
+          <span class="pt-text">{{ i.outcome }}</span>
+        </a></li>
         {% endfor %}
-      </ol>
+      </ul>
       <p class="ind-more">Don't see your industry? <a href="#contact">Tell us how your work runs</a> and we will tell you honestly whether we can help.</p>
     </div>
   </section>
 
-  <section id="process" class="dark">
+  <section id="capabilities" class="caps">
     <div class="wrap">
       <div class="head">
-        <span class="kicker">{{ s.process_kicker }}</span>
+        <h2>{{ s.caps_title }}</h2>
+        <p>{{ s.caps_lede }}</p>
+      </div>
+      <div class="caps-grid">
+        <article id="digital-twin">
+          <img src="/assets/photos/digital-twin.jpg" width="1600" height="900" alt="Pipes, tanks and walkways of an industrial plant" loading="lazy">
+          <h3>{{ s.twin_title }}</h3>
+          <p>{{ s.twin_body }}</p>
+          <p class="f-outcome">{{ s.twin_outcome }}</p>
+        </article>
+        <article id="digital-transformation">
+          <img src="/assets/photos/digital-transformation.jpg" width="1600" height="900" alt="Two colleagues reviewing a data dashboard on a laptop" loading="lazy">
+          <h3>{{ s.dt_title }}</h3>
+          <p>{{ s.dt_body }}</p>
+          <p class="f-outcome">{{ s.dt_outcome }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai" class="ai">
+    <div class="wrap">
+      <div class="head">
+        <h2>{{ s.ai_title }}</h2>
+        <p>{{ s.ai_lede }}</p>
+      </div>
+      <div class="ai-list">
+        {% for a in ai %}
+        <article class="ai-row" id="{{ a.slug }}">
+          {% if a.image %}<img src="{{ a.image }}" width="800" height="450" alt="Diagram of {{ a.title|lower }}" loading="lazy">{% endif %}
+          <div>
+            <h3>{{ a.title }}</h3>
+            <p>{{ a.body }}</p>
+            <p class="f-outcome">{{ a.outcome }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="process">
+    <div class="wrap">
+      <div class="head">
         <h2>{{ s.process_title }}</h2>
         <p>{{ s.process_lede }}</p>
       </div>
-      <div class="steps">
-        {% for st in steps %}<div class="step"><div class="step-num">{{ '%02d'|format(loop.index) }}</div><h3>{{ st.title }}</h3><p>{{ st.body }}</p><p class="out">{{ st.deliverable }}</p></div>
+      <ol class="steps">
+        {% for st in steps %}<li class="step"><span class="step-num">{{ loop.index }}</span><h3>{{ st.title }}</h3><p>{{ st.body }}</p><p class="out">{{ st.deliverable }}</p></li>
         {% endfor %}
-      </div>
+      </ol>
     </div>
   </section>
 
   <section id="about">
     <div class="wrap about">
-      <div>
-        <span class="kicker">{{ s.about_kicker }}</span>
-        <h2>{{ s.about_title }}</h2>
-      </div>
+      <h2>{{ s.about_title }}</h2>
       <p class="about-text">{{ s.about_lede }}</p>
     </div>
   </section>
 
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <div>
-        <span class="kicker">{{ s.contact_kicker }}</span>
-        <h2>{{ s.contact_title }}</h2>
-        <p class="lede">{{ s.contact_lede }}</p>
-        <div class="info">
-          <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small>Email</small><b>{{ s.contact_email }}</b></div></div>
-          <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></span><div><small>Phone</small><b>{{ s.contact_phone }}</b></div></div>
-          <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>Office</small><b>{{ s.contact_office }}</b></div></div>
-          <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></span><div><small>Website</small><b>{{ s.contact_website }}</b></div></div>
-        </div>
-      </div>
-      <form id="contact-form" method="post" action="/contact" novalidate>
-        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}"><input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
-        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-        <h3>Tell us what is slowing you down</h3>
-        <label>Full name<input id="f-name" name="name" required autocomplete="name"></label>
-        <label>Company<input id="f-company" name="company" autocomplete="organization"></label>
-        <label>Work email<input id="f-email" name="email" type="email" required autocomplete="email"></label>
-        <label>Mobile<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label>
-        <label class="full">Your industry<select id="f-service" name="service">{% for i in industries %}<option>{{ i.title }}</option>{% endfor %}<option>Another industry</option></select></label>
-        <label class="full">The problem<textarea id="f-msg" name="message" placeholder="What is slowing your team down today, in your own words."></textarea></label>
-        <label class="full consent"><input type="checkbox" name="consent" value="1" required><span>I agree that Nexova may use these details to respond to my enquiry, as described in the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
-        <div class="full"><button class="btn btn-primary" type="submit">Send request</button></div>
-        <p class="form-msg" id="form-msg" role="status" hidden></p>
-      </form>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="fgrid">
-      <div><img class="logo-light" src="/assets/logo.png" alt="Nexova"><p class="tag">Applications built for the industries that keep the Philippines running.</p></div>
-      <div><h4>Industries</h4><ul>{% for i in industries %}<li><a href="#industries">{{ i.title }}</a></li>{% endfor %}</ul></div>
-      <div><h4>Company</h4><ul><li><a href="#process">How we help</a></li><li><a href="#about">About us</a></li><li><a href="#contact">Contact us</a></li></ul></div>
-    </div>
-    <div class="fbottom"><span>{{ s.footer_copyright }}</span><span class="flegal"><a href="/privacy">Privacy</a> · <a href="/cookies">Cookies</a> · <a href="/terms">Terms</a></span><span>{{ s.contact_email }} · {{ s.contact_phone }} · {{ s.contact_website }}</span></div>
-  </div>
-</footer>
-<script>
-document.getElementById('contact-form').addEventListener('submit',function(e){
-  e.preventDefault();
-  var f=e.target,m=document.getElementById('form-msg'),b=f.querySelector('button');
-  b.disabled=true;
-  fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
-    .then(function(r){return r.json()})
-    .then(function(d){m.textContent=d.message;m.hidden=false;if(d.ok)f.reset();})
-    .catch(function(){m.textContent='Something went wrong. Please email us directly.';m.hidden=false;})
-    .then(function(){b.disabled=false});
-});
-</script>
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-labelledby="cb-title" aria-live="polite" hidden>
-  <div>
-    <b id="cb-title">Cookies on this site</b>
-    <p>We only use essential cookies that keep the site and contact form secure. No tracking or advertising. <a href="/cookies">Cookie Policy</a> · <a href="/privacy">Privacy Policy</a></p>
-  </div>
-  <button type="button" class="btn btn-primary" data-cookie-ok>Got it</button>
-</div>
-<script src="/assets/cookie-notice.js"></script>
-</body></html>
+{% include 'partials/contact.twig' %}
+{% endblock %}

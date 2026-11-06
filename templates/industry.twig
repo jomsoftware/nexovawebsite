@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+{% block main %}
+  <section class="ipage-hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#industries">Industries</a></li>
+        <li aria-current="page">{{ i.title }}</li>
+      </ol></nav>
+      <div class="ih-text">
+        <h1>{{ i.title }} applications</h1>
+        <p class="lede">{{ i.solution }}</p>
+        <div class="ctas"><a class="btn btn-primary" href="#contact">Tell us about your problem</a></div>
+      </div>
+      <img class="ih-photo" src="/assets/photos/{{ i.slug }}.jpg" width="1600" height="900" alt="" fetchpriority="high">
+    </div>
+  </section>
+
+  <section class="ipage">
+    <div class="wrap ipage-grid">
+      <div>
+        <h2>What is slowing {{ i.title|lower }} down</h2>
+        <p class="f-problem">{{ i.body }}</p>
+      </div>
+      <div>
+        <h2>What changes</h2>
+        <p class="f-outcome">{{ i.outcome }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="related">
+    <div class="wrap">
+      <h2>Other industries we work in</h2>
+      <ul class="rel-list">
+        {% for x in industries %}{% if x.slug != i.slug %}<li><a href="/industries/{{ x.slug }}">{{ x.title }}</a></li>{% endif %}{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+{% include 'partials/contact.twig' with {current: i.title} %}
+{% endblock %}

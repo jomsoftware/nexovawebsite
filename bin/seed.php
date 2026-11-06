@@ -18,6 +18,12 @@ const COPY_REV = '4';
 $rev = $pdo->query("SELECT value FROM settings WHERE key='copy_rev'")->fetchColumn();
 $empty = (int) $pdo->query('SELECT COUNT(*) FROM industries')->fetchColumn() === 0;
 
+foreach ($settings as $k => $v) { $fill->execute([$k, $v]); } // new keys appear without touching edited ones
+if ((int) $pdo->query('SELECT COUNT(*) FROM ai_services')->fetchColumn() === 0) {
+    $ai = $pdo->prepare('INSERT INTO ai_services (title,body,outcome,sort) VALUES (?,?,?,?)');
+    foreach ($c['ai_services'] as $x) { $ai->execute([$x['title'], $x['body'], $x['outcome'], $x['sort']]); }
+    echo "Seeded " . count($c['ai_services']) . " AI services.\n";
+}
 if (!$force && $rev === COPY_REV && !$empty) {
     echo "Already seeded (use --force to wipe and reseed).\n";
     exit(0);

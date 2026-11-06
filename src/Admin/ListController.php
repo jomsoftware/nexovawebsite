@@ -14,6 +14,9 @@ final class ListController extends Controller
             'title' => ['Industry name', 'text'], 'body' => ['The problem (what is slowing them down)', 'textarea'],
             'solution' => ['What we build', 'textarea'], 'outcome' => ['What changes (the result)', 'textarea'],
         ]],
+        'ai' => ['table' => 'ai_services', 'title' => 'AI services', 'single' => 'AI service', 'fields' => [
+            'title' => ['Service name', 'text'], 'body' => ['What we build', 'textarea'], 'outcome' => ['What changes (the result)', 'textarea'],
+        ]],
         'services' => ['table' => 'services', 'title' => 'Services', 'single' => 'service', 'fields' => [
             'title' => ['Title', 'text'], 'body' => ['Description', 'textarea'], 'icon' => ['Icon (inline SVG, optional)', 'code'],
         ]],

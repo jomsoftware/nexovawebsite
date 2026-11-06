@@ -19,9 +19,30 @@ final class Content
         return $rows;
     }
 
+    public static function slug(string $title): string
+    {
+        return trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($title)), '-');
+    }
+
+    /** Industries in display order, each with a URL slug derived from its title. */
     public function industries(): array
     {
-        return $this->db->query('SELECT * FROM industries ORDER BY sort, id')->fetchAll();
+        $rows = $this->db->query('SELECT * FROM industries ORDER BY sort, id')->fetchAll();
+        foreach ($rows as &$r) {
+            $r['slug'] = self::slug($r['title']);
+        }
+        return $rows;
+    }
+
+    /** AI services in display order, each with a slug and the diagram under public/assets/ai/{slug}.svg when one exists. */
+    public function aiServices(): array
+    {
+        $rows = $this->db->query('SELECT * FROM ai_services ORDER BY sort, id')->fetchAll();
+        foreach ($rows as &$r) {
+            $r['slug'] = self::slug($r['title']);
+            $r['image'] = is_file(__DIR__ . '/../../public/assets/ai/' . $r['slug'] . '.svg') ? '/assets/ai/' . $r['slug'] . '.svg' : null;
+        }
+        return $rows;
     }
 
     public function services(): array

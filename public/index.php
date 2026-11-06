@@ -51,9 +51,24 @@ $app->add(function ($req, $handler) use ($container, $guard) {
     return $handler->handle($req);
 });
 $app->add($guard);
+// Opt-in (REDIRECT_TO_SITE_URL=1): send every other host, such as www, to SITE_URL with a 301.
+if (($_ENV['REDIRECT_TO_SITE_URL'] ?? '') === '1' && !empty($_ENV['SITE_URL'])) {
+    $app->add(function ($req, $handler) use ($responseFactory) {
+        $want = parse_url($_ENV['SITE_URL'], PHP_URL_HOST);
+        $host = strtolower($req->getHeaderLine('X-Forwarded-Host') ?: $req->getUri()->getHost());
+        if ($want && $host !== $want && !in_array($host, ['localhost', '127.0.0.1'], true) && !str_ends_with($host, '.railway.app')) {
+            $to = rtrim($_ENV['SITE_URL'], '/') . $req->getUri()->getPath() . ($req->getUri()->getQuery() ? '?' . $req->getUri()->getQuery() : '');
+            return $responseFactory->createResponse(301)->withHeader('Location', $to);
+        }
+        return $handler->handle($req);
+    });
+}
 $app->addErrorMiddleware(($_ENV['APP_ENV'] ?? 'production') === 'local', true, true);
 
 $app->get('/', [App\Controllers\SiteController::class, 'home']);
+$app->get('/industries/{slug:[a-z0-9-]+}', [App\Controllers\SiteController::class, 'industry']);
+$app->get('/sitemap.xml', [App\Controllers\SiteController::class, 'sitemap']);
+$app->get('/robots.txt', [App\Controllers\SiteController::class, 'robots']);
 $app->get('/{page:privacy|cookies|terms}', [App\Controllers\SiteController::class, 'legal']);
 $app->get('/uploads/{file}', [App\Controllers\SiteController::class, 'upload']);
 $app->post('/contact', [App\Controllers\ContactController::class, 'submit']);
@@ -73,7 +88,7 @@ $app->group('/admin', function ($g) {
     $g->post('/products/{id:[0-9]+}/delete', [Admin\ProductController::class, 'delete']);
     $g->post('/products/{id:[0-9]+}/move/{dir:up|down}', [Admin\ProductController::class, 'move']);
 
-    $k = '{kind:industries|services|steps}';
+    $k = '{kind:industries|ai|services|steps}';
     $g->get("/$k", [Admin\ListController::class, 'index']);
     $g->get("/$k/new", [Admin\ListController::class, 'form']);
     $g->post("/$k", [Admin\ListController::class, 'save']);
